@@ -1,1 +1,1 @@
-console.log("Xin chào! Đây là ứng dụng DevOps Demo.");
+console.log("Xin chào! Đây là ứng dụng DevOps Demo. Đã thay đổi");
