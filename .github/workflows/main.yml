@@ -1,0 +1,40 @@
+name: Demo CI/CD Pipeline
+
+# Sự kiện kích hoạt: Chạy khi có code push vào nhánh main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # Job 1: Kiểm tra và Build
+  build-and-test:
+    runs-on: ubuntu-latest # Chạy trên máy ảo Ubuntu của GitHub
+
+    steps:
+      # Bước 1: Lấy code từ kho về máy ảo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Bước 2: Cài đặt môi trường Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Bước 3: Giả lập chạy Test (CI)
+      - name: Run Tests
+        run: |
+          echo "Đang chạy kiểm tra lỗi..."
+          node hello.js
+          echo "Test hoàn tất! Không có lỗi."
+
+  # Job 2: Giả lập Triển khai (CD)
+  deploy:
+    needs: build-and-test # Chỉ chạy khi Job trên thành công
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Production
+        run: |
+          echo "Đang triển khai code..."
+          echo "Deploy thành công!"
